@@ -47,6 +47,16 @@ body {
   height: 80vh;
 }
 
+.project-preview {
+  height: 80vh;
+  width: 100%;
+}
+
+.list-tasks {
+  overflow-y: auto;
+  max-height: 75%;
+}
+
 .projects_list-projects {
   overflow-y: auto;
   max-height: 50%;
@@ -193,7 +203,6 @@ section {
   cursor: pointer;
   font-size: 20px;
   padding: 15px 10px;
-  width: 100%;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 8px;
 }
 
@@ -337,4 +346,9 @@ section {
   .list-tasks_checkbox {
     width: 55%;
   }  
+
+  .list-projects_project__close,
+  .list-tasks_task__button {
+    visibility: visible;
+  }
 }

@@ -1,8 +1,8 @@
-import listProjects from "./class/listProjects.js";
+import ListProjects from "./class/ListProjects.js";
 import { showModalWindows, hideModalWindow } from "./modalWindow.js";
 import Project from "./class/Project.js";
 import Task from "./class/Task.js";
-import listTasks from "./class/listTasks.js";
+import ListTasks from "./class/ListTasks.js";
 import preloader from "./preloader.js";
 
 const wrapperMain = document.querySelector(".wrapper-main");
@@ -22,7 +22,7 @@ const arrayListProjetcs = Project.createStaticProjects(elementsOfStaticProjects)
 const dataWithLocalStorage = JSON.parse(localStorage.getItem("list-projects"));
 
 const dataOfProjects = dataWithLocalStorage ? dataWithLocalStorage : arrayListProjetcs;
-const getListProjects = new listProjects(listProjectsElement, dataOfProjects);
+const getListProjects = new ListProjects(listProjectsElement, dataOfProjects);
 
 wrapperMain.addEventListener("click", (event) => {
   const target = event.target;
@@ -201,7 +201,7 @@ wrapperMain.addEventListener("click", (event) => {
   if (!closeTaskButton) return;
 
   const selectTask = closeTaskButton.closest(".list-tasks_task");
-  listTasks.deleteTask(getListProjects, selectTask);
+  ListTasks.deleteTask(getListProjects, selectTask);
   getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
 });
 

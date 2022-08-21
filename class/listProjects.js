@@ -1,7 +1,7 @@
-import listTasks from "./listTasks.js";
+import ListTasks from "./ListTasks.js";
 import Project from "./Project.js";
 
-class listProjects {
+class ListProjects {
   get selectProject() {
     return this.dataOfProjects[this.indexSelectProject];
   }
@@ -177,6 +177,9 @@ class listProjects {
 
   fillProjectPreview() {
     const preview = document.querySelector(".project-preview");
+    
+    if (!this.selectProject) return;
+
     const nameSelectProject = this.selectProject.name;
     const templateProejctPreview = `<div class="project-preview_heading">${nameSelectProject}</div>
     <div class="list-tasks"></div>`;
@@ -193,7 +196,7 @@ class listProjects {
 
     const elementListTasks = document.querySelector(".list-tasks");
     const tasks = this.selectProject.tasks;
-    const getListTasks = new listTasks(elementListTasks, tasks);
+    const getListTasks = new ListTasks(elementListTasks, tasks);
     getListTasks.fillListByTasks();
   }
 
@@ -221,4 +224,4 @@ class listProjects {
   }
 }
 
-export default listProjects;
+export default ListProjects;
