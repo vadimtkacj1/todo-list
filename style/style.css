@@ -1,0 +1,313 @@
+body {
+  font-family: sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4e42d4;
+  padding: 15px 20px;
+}
+
+.wrapper-logo {
+  display: flex;
+  align-items: center;
+  font-size: 65px;
+  font-weight: bold;
+  color: #f7f9fb;
+}
+
+.logo {
+  margin-right: 15px;
+  font-size: 65px;
+}
+
+.wrapper-nav {
+  height: 100%;
+}
+
+.nav-projects {
+  background-color: #c3d1e0;
+  width: 280px;
+  padding: 25px 20px;
+  height: 100%;
+}
+
+.static-projects {
+  margin-bottom: 20px;
+}
+
+.button-nav {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 15px 10px;
+}
+
+.button-nav:hover,
+.list-tasks_task:hover {
+  background-color: #a5c5e8;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.list-tasks_task:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.active {
+  background-color: #a5c5e8;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.button-nav_icon {
+  margin-right: 5px;
+}
+
+.projects_heading {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.button-projects_amount-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-projects_amount {
+  background-color: #4e42d4;
+  padding: 5px;
+  font-size: 17px;
+  color: #f7f9fb;
+  border-radius: 50%;
+}
+
+/* .project {
+  height: 100%;
+}
+
+.projects_list-projects {
+  overflow-y: scroll;
+  height: 10%;
+} */
+
+.list-projects_project__icon {
+  margin-right: 5px;
+}
+
+.list-projects_project__text {
+  overflow: hidden;
+  width: 80%;
+}
+
+.wrapper-list-projects_project__close {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  visibility: hidden;
+}
+
+.list-tasks_task__button {
+  visibility: hidden;
+}
+
+.button-nav:hover .list-projects_project__close {
+  visibility: visible;
+}
+
+.list-tasks_task:hover .list-tasks_task__button {
+  visibility: visible;
+}
+
+.list-projects_project__close:hover,
+.list-tasks_task__button:hover,
+.button-close-wrapper-nav:hover {
+  color: #4e42d4;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+}
+
+section {
+  width: 70%;
+}
+
+.wrapper-main {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper-section {
+  padding: 40px 60px 0px 60px;
+}
+
+.project-preview {
+  margin: 0px 30px;
+}
+
+.project-preview_heading {
+  font-weight: bold;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+.wrapper_button-close-wrapper-nav {
+  display: none;
+  justify-content: flex-end;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.list-tasks {
+  margin-bottom: 30px;
+}
+
+/* .list-tasks_task:hover {
+  border-left: none;
+} */
+
+.list-tasks_task {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 15px 10px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 8px;
+}
+
+.list-tasks_task__dueDate {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.list-tasks_task:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.list-tasks_task__button {
+  margin-left: 10px;
+}
+
+.button-burger-menu {
+  position: relative;
+  cursor: pointer;
+  width: 40px;
+  display: none;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 30px;
+}
+
+.button-burger-menu_line {
+  background-color: #ffffff;
+  width: 100%;
+  height: 5px;
+  transition: all 0.3s;
+}
+
+.button-burger-menu_active .button-burger-menu_line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.button-burger-menu_active .button-burger-menu_line__left {
+  transform: rotate(45deg);
+}
+
+.button-burger-menu_active .button-burger-menu_line__center {
+  transform: rotate(45deg);
+}
+
+.button-burger-menu_active .button-burger-menu_line__right {
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 800px) {
+  .nav-projects {
+    width: 200px;
+  }
+
+  .project-preview {
+    margin: 0px;
+  }
+}
+
+@media (max-width: 700px) {
+  .nav-projects {
+    width: 170px;
+    padding: 20px 15px;
+  }
+
+  .wrapper-section {
+    padding: 25px 30px 0px 30px;
+  }
+
+  .project-preview_heading {
+    font-size: 35px;
+    margin-bottom: 20px;
+  }
+
+  .list-tasks_task {
+    font-size: 15px;
+  }
+
+  .projects_heading {
+    font-size: 30px;
+  }
+
+  .button-nav {
+    font-size: 15px;
+  }
+
+  .wrapper-logo {
+    font-size: 50px;
+  }
+
+  section {
+    width: 65%;
+  }
+}
+
+@media (max-width: 580px) {
+  .button-burger-menu {
+    display: flex;
+  }
+
+  .wrapper-nav {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    left: -100%;
+    width: 100%;
+    transition: all 0.3s;
+  }
+
+  .nav-projects {
+    width: 70%;
+  }
+
+  .wrapper_button-close-wrapper-nav {
+    display: flex;
+  }
+
+  section {
+    width: 95%;
+  }
+}
