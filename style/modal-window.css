@@ -133,7 +133,7 @@
   .button-submit:hover {
     font-size: 23px;
   }
-  
+
   .button-submit:active {
     font-size: 23px;
   }
@@ -152,7 +152,7 @@
   .button-submit:hover {
     font-size: 21px;
   }
-  
+
   .button-submit:active {
     font-size: 21px;
   }
@@ -160,7 +160,7 @@
 
 @media (max-width: 580px) {
   .modal-window {
-    font-size: 16px;
+    font-size: 15px;
     width: 320px;
   }
 
@@ -171,24 +171,35 @@
   .button-submit:hover {
     font-size: 19px;
   }
-  
+
   .button-submit:active {
     font-size: 19px;
   }
 
   .modal-window_header-modal {
-    font-size: 38px;
-  }
-  
-  .button-hiding-modal-window {
-    font-size: 38px;
+    font-size: 34px;
   }
 
+  .button-hiding-modal-window {
+    font-size: 34px;
+  }
+
+  .modal-window_data-about,
+  .modal-window_header-modal {
+    padding: 15px 10px;
+  }
+  
   .modal-window_data-about-info {
     margin-bottom: 20px;
   }
 
   #description {
     margin-bottom: 0px;
+  }
+
+  #description,
+  .data-about_element input,
+  .data-about_element select {
+    padding: 10px;
   }
 }
