@@ -43,6 +43,15 @@ body {
   margin-bottom: 20px;
 }
 
+.projects {
+  height: 80vh;
+}
+
+.projects_list-projects {
+  overflow-y: auto;
+  max-height: 50%;
+}
+
 .button-nav {
   display: flex;
   align-items: center;
@@ -192,6 +201,7 @@ section {
   display: flex;
   flex-grow: 1;
   justify-content: flex-end;
+  margin-left: 10px;
 }
 
 .list-tasks_task:not(:last-child) {
@@ -227,6 +237,11 @@ section {
   bottom: 0;
 }
 
+.list-tasks_checkbox {
+  width: 75%;
+  overflow: hidden;
+}
+
 .button-burger-menu_active .button-burger-menu_line__left {
   transform: rotate(45deg);
 }
@@ -247,6 +262,10 @@ section {
   .project-preview {
     margin: 0px;
   }
+
+  .list-tasks_checkbox {
+    width: 50%;
+  }  
 }
 
 @media (max-width: 700px) {
@@ -310,4 +329,12 @@ section {
   section {
     width: 95%;
   }
+
+  .wrapper-logo {
+    font-size: 45px;
+  }
+
+  .list-tasks_checkbox {
+    width: 55%;
+  }  
 }

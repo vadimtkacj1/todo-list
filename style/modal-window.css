@@ -90,6 +90,10 @@
   color: #f7f9fb;
 }
 
+.data-about-info_element__value {
+  overflow-x: auto;
+}
+
 .button-submit:active {
   padding: 10px 15px;
   font-size: 25px;

@@ -83,24 +83,6 @@ class listProjects {
     localStorage.setItem(name, data);
   }
 
-  // checkingTasksForExpirationDatesOfToday() {
-  //   const todayProject = this.dataOfProjects.find((project) => project.name === 'Today');
-  //   const tasksOfTodayProject = todayProject.tasks;
-  //   todayProject.tasks = tasksOfTodayProject.filter((task) => {
-  //     const dateNow = new Date();
-  //     const editDateOfTaskInDate = Date.parse(task.dueDate);
-  //     const dateTask = new Date(editDateOfTaskInDate)
-
-  //     if (dateNow.getFullYear() !== dateTask.getFullYear()) return false;
-
-  //     if (dateNow.getMonth() !== dateTask.getMonth()) return false;
-
-  //     if (dateNow.getDay() !== dateTask.getDay()) return false;
-
-  //     return true;
-  //   });
-  // }
-
   addTaskInThisWeekProjectIfProject() {
     const todayProject = this.findProjectInListProject("This week");
     const tasksOfTodayProject = todayProject.tasks;
