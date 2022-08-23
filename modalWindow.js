@@ -8,4 +8,21 @@ const showModalWindows = (wrapperModalWindow, modalWindow) => {
   wrapperModalWindow.style.visibility = "visible";
 };
 
-export { hideModalWindow, showModalWindows };
+const resetModalWindow = (formModalWindow) => {
+  const elementsOfFormModalWindow = Array.from(formModalWindow.elements);
+  elementsOfFormModalWindow.forEach(elementOfForm => {
+    const nameElementOfForm = elementOfForm.name;
+    const typeElementOfForm = elementOfForm.type
+
+    if (nameElementOfForm === 'priority') {
+      elementOfForm.value = 'low';
+      return;
+    }
+
+    if (typeElementOfForm === 'submit') return;
+
+    elementOfForm.value = '';
+  });
+}
+
+export { hideModalWindow, showModalWindows, resetModalWindow };

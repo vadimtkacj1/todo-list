@@ -177,7 +177,7 @@ class ListProjects {
 
   fillProjectPreview() {
     const preview = document.querySelector(".project-preview");
-    
+
     if (!this.selectProject) return;
 
     const nameSelectProject = this.selectProject.name;

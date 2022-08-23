@@ -1,5 +1,5 @@
 import ListProjects from "./class/ListProjects.js";
-import { showModalWindows, hideModalWindow } from "./modalWindow.js";
+import { showModalWindows, hideModalWindow, resetModalWindow } from "./modalWindow.js";
 import Project from "./class/Project.js";
 import Task from "./class/Task.js";
 import ListTasks from "./class/ListTasks.js";
@@ -83,8 +83,17 @@ document.addEventListener("click", (event) => {
   if (hasModalWindow && !hasButtonHidingModalWindow) return;
 
   const modalWindow = hasWrapperModalWindow.lastElementChild;
+  const formModalWindow = modalWindow.lastElementChild;
 
   hideModalWindow(hasWrapperModalWindow, modalWindow);
+
+  const formEdit = hasWrapperModalWindow.classList.contains("edit-modal");
+  if (formEdit) return;
+
+  const formInfo = hasWrapperModalWindow.classList.contains("info-modal");
+  if (formInfo) return;
+
+  resetModalWindow(formModalWindow);
 });
 
 formAddProject.addEventListener("submit", function (event) {
@@ -243,7 +252,7 @@ wrapperNav.addEventListener("click", (event) => {
 
   const buttonClose = target.closest(".list-projects_project__close");
   if (buttonClose) return;
-  
+
   const buttonAdd = target.closest(".button-add");
   if (buttonAdd) return;
 
@@ -257,10 +266,10 @@ wrapperNav.addEventListener("click", (event) => {
 });
 
 preloader().then(() => {
-  const preloaderElement = document.querySelector('.preloader');
-  preloaderElement.style.opacity = '0';
+  const preloaderElement = document.querySelector(".preloader");
+  preloaderElement.style.opacity = "0";
   setTimeout(() => preloaderElement.remove(), 600);
-})
+});
 
 // taskEdit.addEventListener('click', (event) => {
 //   const target = event.target;
