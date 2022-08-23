@@ -1,33 +1,37 @@
 import Task from "./Task.js";
 
 class ListTasks {
-  constructor(listElements, tasks) {
-    this.listElements = listElements;
-    this.tasks = tasks;
+  #listOfTasksElement;
+  #tasks;
+  #listProjects;
+
+  constructor(listOfTasksElement, tasks, listProjects) {
+    this.#listOfTasksElement = listOfTasksElement;
+    this.#tasks = tasks;
+    this.#listProjects = listProjects;
   }
 
   fillListByTasks() {
-    this.tasks.forEach((task) => {
-      const template = Task.createTask(task);
+    this.#tasks.forEach((task) => {
+      task.__proto__ = Task.prototype;
+      const template = task.createTask(task);
 
-      this.listElements.insertAdjacentHTML("beforeend", template);
+      this.#listOfTasksElement.insertAdjacentHTML("beforeend", template);
     });
   }
 
-  static deleteTask(listProjects, selectTask) {
-    const tasksSelectProject = listProjects.selectProject.tasks;
-    const tasks = Array.from(document.querySelectorAll(".list-tasks_task"));
-    const indexSelectTask = tasks.indexOf(selectTask);
-    const hasNameProjectInTask = tasksSelectProject[indexSelectTask].nameProject
+  deleteTask(indexSelectTask) {
+    const selectTask = this.#tasks[indexSelectTask];
+
+    const hasNameProjectInTask = selectTask.nameProject;
     if (hasNameProjectInTask) {
-      const projectParent = listProjects.findProjectInListProject(hasNameProjectInTask);
+      const projectParent = this.#listProjects.findProjectInListProject(hasNameProjectInTask);
       const tasksParentProject = projectParent.tasks;
 
       tasksParentProject.splice(indexSelectTask, 1);
     }
 
-    tasksSelectProject.splice(indexSelectTask, 1);
-    selectTask.remove();
+    this.#tasks.splice(indexSelectTask, 1);
   }
 }
 

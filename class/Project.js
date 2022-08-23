@@ -1,5 +1,5 @@
 class Project {
-  constructor(name, staticProject = false, checkAddButton = '1') {
+  constructor(name, staticProject = false, checkAddButton = "1") {
     this.name = name;
     this.staticProject = staticProject;
     this.checkAddButton = checkAddButton;
@@ -22,7 +22,7 @@ class Project {
     const arrayStaticProjects = [];
     staticProjects.forEach((element) => {
       const valueElement = element.textContent;
-      const buttonNav = element.closest('.button-nav');
+      const buttonNav = element.closest(".button-nav");
       const valueAddButton = buttonNav.dataset.addButton;
       const createStaticProject = new Project(valueElement, true, valueAddButton);
 

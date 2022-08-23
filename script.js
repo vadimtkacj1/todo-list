@@ -109,7 +109,9 @@ formAddProject.addEventListener("submit", function (event) {
 
   hideModalWindow(wrapperModalWindow, modalWindow);
   nameProject.blur();
-  nameProject.value = "";
+
+  const formModalWindow = modalWindow.lastElementChild;
+  resetModalWindow(formModalWindow);
 });
 
 formAddTask.addEventListener("submit", function (event) {
@@ -133,9 +135,9 @@ formAddTask.addEventListener("submit", function (event) {
   getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
 
   this.blur();
-  nameTask.value = "";
-  dueDate.value = "";
-  description.value = "";
+
+  const formModalWindow = modalWindow.lastElementChild;
+  resetModalWindow(formModalWindow);
 });
 
 fromEdit.addEventListener("submit", (event) => {
@@ -210,7 +212,15 @@ wrapperMain.addEventListener("click", (event) => {
   if (!closeTaskButton) return;
 
   const selectTask = closeTaskButton.closest(".list-tasks_task");
-  ListTasks.deleteTask(getListProjects, selectTask);
+
+  const tasksSelectProject = getListProjects.selectProject.tasks;
+  const elementListTasks = document.querySelector(".list-tasks");
+  const listTasks = new ListTasks(elementListTasks, tasksSelectProject, getListProjects);
+
+  const tasks = Array.from(document.querySelectorAll(".list-tasks_task"));
+  const indexSelectTask = tasks.indexOf(selectTask);
+  listTasks.deleteTask(indexSelectTask);
+  tasks[indexSelectTask].remove();
   getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
 });
 
@@ -270,38 +280,3 @@ preloader().then(() => {
   preloaderElement.style.opacity = "0";
   setTimeout(() => preloaderElement.remove(), 600);
 });
-
-// taskEdit.addEventListener('click', (event) => {
-//   const target = event.target;
-//   const tasksSelectProject = getListProjects.selectProject.tasks;
-//   const selectTask = target.closest('.list-tasks_task')
-//   const tasks = Array.from(document.querySelectorAll('.list-tasks_task'));
-//   const indexSelectTask = tasks.indexOf(selectTask);
-//   const dataSelectTask = tasksSelectProject[indexSelectTask];
-
-//   showModalWindows(editModal);
-
-//   const form = editModal.lastElementChild.lastElementChild
-//   form.nameTask.value = dataSelectTask.title;
-//   form.dueData.value = dataSelectTask.dueData;
-//   form.description.value = dataSelectTask.description;
-//   form.priority.value = dataSelectTask.priority;
-// })
-
-// [
-//   {
-//     name: "Inbox",
-//     task: [],
-//     staticProject: true,
-//   },
-//   {
-//     name: "Today",
-//     task: [],
-//     staticProject: true,
-//   },
-//   {
-//     name: "This week",
-//     task: [],
-//     staticProject: true,
-//   },
-// ];

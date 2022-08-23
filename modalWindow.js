@@ -10,19 +10,19 @@ const showModalWindows = (wrapperModalWindow, modalWindow) => {
 
 const resetModalWindow = (formModalWindow) => {
   const elementsOfFormModalWindow = Array.from(formModalWindow.elements);
-  elementsOfFormModalWindow.forEach(elementOfForm => {
+  elementsOfFormModalWindow.forEach((elementOfForm) => {
     const nameElementOfForm = elementOfForm.name;
-    const typeElementOfForm = elementOfForm.type
+    const typeElementOfForm = elementOfForm.type;
 
-    if (nameElementOfForm === 'priority') {
-      elementOfForm.value = 'low';
+    if (nameElementOfForm === "priority") {
+      elementOfForm.value = "low";
       return;
     }
 
-    if (typeElementOfForm === 'submit') return;
+    if (typeElementOfForm === "submit") return;
 
-    elementOfForm.value = '';
+    elementOfForm.value = "";
   });
-}
+};
 
 export { hideModalWindow, showModalWindows, resetModalWindow };

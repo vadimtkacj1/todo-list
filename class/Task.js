@@ -4,7 +4,7 @@ class Task {
     medium: "orange",
     hight: "red",
   };
-  
+
   constructor(title, priority, description, dueDate) {
     this.title = title;
     this.description = description;
@@ -14,15 +14,15 @@ class Task {
     this.checked = false;
   }
 
-  static createTask(task) {
-    const checkDueData = task.dueDate ? task.dueDate : "No date";
-    const colorPriority = Task.priorityColor[task.priority];
-    const checkedCheck = task.checked ? "checked" : "";
-    const checkProjectName = task.nameProject ? '(' + task.nameProject + ')' : "";
+  createTask() {
+    const checkDueData = this.dueDate ? this.dueDate : "No date";
+    const colorPriority = Task.priorityColor[this.priority];
+    const checkedCheck = this.checked ? "checked" : "";
+    const checkProjectName = this.nameProject ? "(" + this.nameProject + ")" : "";
     const template = `<div class="list-tasks_task ${checkedCheck}" style="border-left: 3px solid ${colorPriority};">
     <label class="list-tasks_checkbox">
       <input type="checkbox" name="checkboxTask" class="list-tasks_task__checkboxTask" ${checkedCheck} />
-      <span class="list-tasks_task__title">${task.title} ${checkProjectName}</span>
+      <span class="list-tasks_task__title">${this.title} ${checkProjectName}</span>
     </label>
     <div class="list-tasks_task__dueDate">${checkDueData}</div>
     <span class="material-symbols-outlined list-tasks_task__info list-tasks_task__button">info</span>
