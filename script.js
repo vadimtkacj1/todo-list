@@ -2,7 +2,6 @@ import ListProjects from "./class/ListProjects.js";
 import { showModalWindows, hideModalWindow, resetModalWindow } from "./modalWindow.js";
 import Project from "./class/Project.js";
 import Task from "./class/Task.js";
-import ListTasks from "./class/ListTasks.js";
 import preloader from "./preloader.js";
 
 const wrapperMain = document.querySelector(".wrapper-main");
@@ -213,13 +212,14 @@ wrapperMain.addEventListener("click", (event) => {
 
   const selectTask = closeTaskButton.closest(".list-tasks_task");
 
-  const tasksSelectProject = getListProjects.selectProject.tasks;
-  const elementListTasks = document.querySelector(".list-tasks");
-  const listTasks = new ListTasks(elementListTasks, tasksSelectProject, getListProjects);
+  const tasksSelectProject = getListProjects.selectProject.listOfTasks;
+  // const elementListTasks = document.querySelector(".list-tasks");
+  // const listTasks = new ListTasks(elementListTasks, tasksSelectProject, getListProjects);
 
   const tasks = Array.from(document.querySelectorAll(".list-tasks_task"));
   const indexSelectTask = tasks.indexOf(selectTask);
-  listTasks.deleteTask(indexSelectTask);
+
+  tasksSelectProject.deleteTask(indexSelectTask);
   tasks[indexSelectTask].remove();
   getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
 });

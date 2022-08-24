@@ -4,12 +4,13 @@ class Project {
     this.staticProject = staticProject;
     this.checkAddButton = checkAddButton;
     this.tasks = [];
+    this.listOfTasks = null;
   }
 
-  static createProject(project) {
+  createProject() {
     const template = `<div class="list-projects_project button-nav">
           <span class="material-symbols-outlined list-projects_project__icon">format_list_bulleted</span>
-          <span class="list-projects_project__text">${project.name}</span>
+          <span class="list-projects_project__text">${this.name}</span>
           <span class="wrapper-list-projects_project__close"> 
           <span class="material-symbols-outlined list-projects_project__close">close</span>
           </span>

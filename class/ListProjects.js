@@ -1,34 +1,33 @@
 import ListTasks from "./ListTasks.js";
 import Project from "./Project.js";
+import List from "./List.js";
 
-class ListProjects {
+class ListProjects extends List {
   get selectProject() {
-    return this.#dataOfProjects[this.#indexSelectProject];
+    return this.dataAboutList[this.#indexSelectProject];
   }
 
   get nameProjects() {
-    return this.#dataOfProjects.map((project) => project.name);
+    return this.dataAboutList.map((project) => project.name);
   }
 
-  #listOfProjectsElement;
   #indexSelectProject = 0;
-  #dataOfProjects;
 
-  constructor(listOfProjectsElement, dataOfProjects = []) {
-    this.#listOfProjectsElement = listOfProjectsElement;
-    this.#dataOfProjects = dataOfProjects;
+  constructor(listElement, dataAboutList) {
+    super(listElement, dataAboutList);
     this.fillListByProjects();
     this.fillProjectPreview();
     this.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
   }
 
   #updataOfDataOfProjectsInLocalStorage() {
-    const dataOfProjectsJson = JSON.stringify(this.#dataOfProjects);
-    this.#updataInLocalStorage("list-projects", dataOfProjectsJson);
+    const dataAboutListJson = JSON.stringify(this.dataAboutList);
+    this.#updataInLocalStorage("list-projects", dataAboutListJson);
   }
 
   addTaskInSelectProject(task) {
-    this.selectProject.tasks.push(task);
+    this.selectProject.listOfTasks.addTaskInListTasks(task);
+    // this.selectProject.tasks.push(task);
 
     this.#updataOfDataOfProjectsInLocalStorage();
   }
@@ -36,7 +35,7 @@ class ListProjects {
   #addCountTasksInProject() {
     const buttonsNav = document.querySelectorAll(".button-nav");
 
-    this.#dataOfProjects.forEach((project, indexProject) => {
+    this.dataAboutList.forEach((project, indexProject) => {
       const tasks = project.tasks;
       const checkedTask = tasks.filter((task) => !task.checked);
       const lengthCheckedTasks = checkedTask.length;
@@ -56,13 +55,15 @@ class ListProjects {
   }
 
   fillListByProjects() {
-    this.#listOfProjectsElement.textContent = "";
-    this.#dataOfProjects.forEach((project) => {
+    this.listElement.textContent = "";
+    this.dataAboutList.forEach((project) => {
       if (project.staticProject) return;
 
-      const template = Project.createProject(project);
+      project.__proto__ = Project.prototype;
 
-      this.#listOfProjectsElement.insertAdjacentHTML("beforeend", template);
+      const template = project.createProject();
+
+      this.listElement.insertAdjacentHTML("beforeend", template);
     });
   }
 
@@ -72,10 +73,12 @@ class ListProjects {
       return;
     }
 
-    this.#dataOfProjects.push(project);
+    this.dataAboutList.push(project);
 
-    const template = Project.createProject(project);
-    this.#listOfProjectsElement.insertAdjacentHTML("beforeend", template);
+    project.__proto__ = Project.prototype;
+
+    const template = project.createProject(project);
+    this.listElement.insertAdjacentHTML("beforeend", template);
 
     this.#addCountTasksInProject();
     this.#updataOfDataOfProjectsInLocalStorage();
@@ -91,7 +94,7 @@ class ListProjects {
 
     tasksOfTodayProject.length = 0;
 
-    this.#dataOfProjects.forEach((project) => {
+    this.dataAboutList.forEach((project) => {
       const tasksProject = Array.from(project.tasks);
 
       if (project.checkAddButton === "0") return;
@@ -117,7 +120,7 @@ class ListProjects {
   }
 
   findProjectInListProject(nameProject) {
-    return this.#dataOfProjects.find((project) => project.name === nameProject);
+    return this.dataAboutList.find((project) => project.name === nameProject);
   }
 
   addTasksInStaticProjectAndUpdateDataAndAddCountTasks() {
@@ -133,7 +136,7 @@ class ListProjects {
 
     tasksOfTodayProject.length = 0;
 
-    this.#dataOfProjects.forEach((project) => {
+    this.dataAboutList.forEach((project) => {
       const tasksProject = Array.from(project.tasks);
 
       if (project.checkAddButton === "0") return;
@@ -199,8 +202,9 @@ class ListProjects {
 
     const elementListTasks = document.querySelector(".list-tasks");
     const tasks = this.selectProject.tasks;
-    const getListTasks = new ListTasks(elementListTasks, tasks);
+    const getListTasks = new ListTasks(elementListTasks, tasks, this);
     getListTasks.fillListByTasks();
+    this.selectProject.listOfTasks = getListTasks;
   }
 
   #clearProjectPreview() {
@@ -214,7 +218,7 @@ class ListProjects {
   }
 
   deleteProjectWithList(index) {
-    this.#dataOfProjects.splice(index, 1);
+    this.dataAboutList.splice(index, 1);
 
     this.#deselectAll();
     this.#clearProjectPreview();
