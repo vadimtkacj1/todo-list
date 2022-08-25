@@ -15,7 +15,7 @@ class ListProjects extends List {
 
   constructor(listElement, dataAboutList) {
     super(listElement, dataAboutList);
-    this.fillListByProjects();
+    this.fillListByDataAboutList();
     this.fillProjectPreview();
     this.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
   }
@@ -27,7 +27,6 @@ class ListProjects extends List {
 
   addTaskInSelectProject(task) {
     this.selectProject.listOfTasks.addTaskInListTasks(task);
-    // this.selectProject.tasks.push(task);
 
     this.#updataOfDataOfProjectsInLocalStorage();
   }
@@ -54,14 +53,14 @@ class ListProjects extends List {
     });
   }
 
-  fillListByProjects() {
+  fillListByDataAboutList() {
     this.listElement.textContent = "";
     this.dataAboutList.forEach((project) => {
       if (project.staticProject) return;
 
       project.__proto__ = Project.prototype;
 
-      const template = project.createProject();
+      const template = project.createElement();
 
       this.listElement.insertAdjacentHTML("beforeend", template);
     });
@@ -77,7 +76,7 @@ class ListProjects extends List {
 
     project.__proto__ = Project.prototype;
 
-    const template = project.createProject(project);
+    const template = project.createElement(project);
     this.listElement.insertAdjacentHTML("beforeend", template);
 
     this.#addCountTasksInProject();
@@ -203,7 +202,7 @@ class ListProjects extends List {
     const elementListTasks = document.querySelector(".list-tasks");
     const tasks = this.selectProject.tasks;
     const getListTasks = new ListTasks(elementListTasks, tasks, this);
-    getListTasks.fillListByTasks();
+    getListTasks.fillListByDataAboutList();
     this.selectProject.listOfTasks = getListTasks;
   }
 
@@ -217,14 +216,14 @@ class ListProjects extends List {
     allButtons.forEach((button) => button.classList.remove("active"));
   }
 
-  deleteProjectWithList(index) {
-    this.dataAboutList.splice(index, 1);
+  deleteElementWithList(indexSelectElement) {
+    this.dataAboutList.splice(indexSelectElement, 1);
 
     this.#deselectAll();
     this.#clearProjectPreview();
     this.#updataOfDataOfProjectsInLocalStorage();
 
-    if (index === this.#indexSelectProject) return;
+    if (indexSelectElement === this.#indexSelectProject) return;
 
     const buttonsNav = document.querySelectorAll(".button-nav");
     const selectProjectInListProject = buttonsNav[this.#indexSelectProject];

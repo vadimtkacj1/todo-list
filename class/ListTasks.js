@@ -5,7 +5,7 @@ class ListTasks extends List {
   #listProjects;
 
   constructor(listElement, dataAboutList, listProjects) {
-    super(listElement, dataAboutList)
+    super(listElement, dataAboutList);
     this.#listProjects = listProjects;
   }
 
@@ -13,16 +13,16 @@ class ListTasks extends List {
     this.dataAboutList.push(task);
   }
 
-  fillListByTasks() {
+  fillListByDataAboutList() {
     this.dataAboutList.forEach((task) => {
       task.__proto__ = Task.prototype;
-      const template = task.createTask(task);
+      const template = task.createElement(task);
 
       this.listElement.insertAdjacentHTML("beforeend", template);
     });
   }
 
-  deleteTask(indexSelectTask) {
+  deleteElementWithList(indexSelectTask) {
     const selectTask = this.dataAboutList[indexSelectTask];
 
     const hasNameProjectInTask = selectTask.nameProject;

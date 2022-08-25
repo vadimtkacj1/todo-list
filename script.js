@@ -181,7 +181,7 @@ listProjectsElement.addEventListener("click", (event) => {
   const parentTarget = target.closest(".button-nav");
   const indexButtonNav = buttonsNav.indexOf(parentTarget);
 
-  getListProjects.deleteProjectWithList(indexButtonNav);
+  getListProjects.deleteElementWithList(indexButtonNav);
   parentTarget.remove();
   getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
 });
@@ -213,13 +213,11 @@ wrapperMain.addEventListener("click", (event) => {
   const selectTask = closeTaskButton.closest(".list-tasks_task");
 
   const tasksSelectProject = getListProjects.selectProject.listOfTasks;
-  // const elementListTasks = document.querySelector(".list-tasks");
-  // const listTasks = new ListTasks(elementListTasks, tasksSelectProject, getListProjects);
 
   const tasks = Array.from(document.querySelectorAll(".list-tasks_task"));
   const indexSelectTask = tasks.indexOf(selectTask);
 
-  tasksSelectProject.deleteTask(indexSelectTask);
+  tasksSelectProject.deleteElementWithList(indexSelectTask);
   tasks[indexSelectTask].remove();
   getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
 });

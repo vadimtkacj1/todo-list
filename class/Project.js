@@ -7,7 +7,7 @@ class Project {
     this.listOfTasks = null;
   }
 
-  createProject() {
+  createElement() {
     const template = `<div class="list-projects_project button-nav">
           <span class="material-symbols-outlined list-projects_project__icon">format_list_bulleted</span>
           <span class="list-projects_project__text">${this.name}</span>

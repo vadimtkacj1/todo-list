@@ -14,7 +14,7 @@ class Task {
     this.checked = false;
   }
 
-  createTask() {
+  createElement() {
     const checkDueData = this.dueDate ? this.dueDate : "No date";
     const colorPriority = Task.priorityColor[this.priority];
     const checkedCheck = this.checked ? "checked" : "";
