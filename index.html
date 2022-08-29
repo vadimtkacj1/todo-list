@@ -13,6 +13,26 @@
     <title>Document</title>
   </head>
   <body>
+    <div class="wrapper-modal-window log-in-or-sign-up-modal">
+      <div class="modal-window-sign-up-or-log-in">
+        <div class="modal-window_header-modal modal-window_headers-modal">
+          <span class="header-modal_heading header-modal_heading__button header-modal_heading__button-active" data-value="logIn">Log In</span>
+          <span class="header-modal_heading header-modal_heading__button" data-value="signUp">Sign Up</span>
+        </div>
+        <form action="#" class="modal-window_data-about modal-window_log-in-or-sign-up" data-style-submit="logIn"> 
+          <div class="data-about_element log-in-or-sign-up_element">
+            <label for="email">Email Address:</label>
+            <input type="email" name="email" placeholder="Enter your email address..." required />
+          </div>
+          <div class="data-about_element log-in-or-sign-up_element">
+            <label for="email">Password:</label>
+            <input type="password" name="password" placeholder="Enter your password..." required />
+          </div>
+          <div class="data-about_element log-in-or-sign-up_element__error"></div>
+          <input type="submit" name="buttonSubmit" class="button-submit" value="Log In" />
+        </form>
+      </div>
+    </div>
     <div class="preloader">
       <div></div>
       <div></div>
@@ -178,6 +198,7 @@
     <footer>
       <div class="wrapper-footer"></div>
     </footer>
+    <script src="firebase.js" type="module"></script>
     <script src="script.js" type="module"></script>
   </body>
 </html>

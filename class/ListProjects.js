@@ -15,13 +15,37 @@ class ListProjects extends List {
 
   constructor(listElement, dataAboutList) {
     super(listElement, dataAboutList);
+    this.#addPropertiesTaskInProject();
     this.fillListByDataAboutList();
     this.fillProjectPreview();
     this.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
   }
 
+  #addPropertiesTaskInProject() {
+    this.dataAboutList.forEach((project) => {
+      const tasks = project.tasks;
+
+      if (tasks) return;
+
+      project.tasks = [];
+    });
+  }
+
+  #editDataAboutProjectsInUser(idUser, dataAboutList) {
+    return fetch(`https://to-do-aced8-default-rtdb.firebaseio.com/project-user-lists/${idUser}.json`, {
+      method: "PUT",
+      body: dataAboutList,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
   #updataOfDataOfProjectsInLocalStorage() {
     const dataAboutListJson = JSON.stringify(this.dataAboutList);
+    const idUser = localStorage.getItem("id");
+
+    this.#editDataAboutProjectsInUser(idUser, dataAboutListJson);
     this.#updataInLocalStorage("list-projects", dataAboutListJson);
   }
 
@@ -156,6 +180,10 @@ class ListProjects extends List {
         tasksOfTodayProject.push(taskSuitable);
       });
     });
+  }
+
+  static findProjectUser(idUser) {
+    return fetch(`https://to-do-aced8-default-rtdb.firebaseio.com/project-user-lists/${idUser}.json`);
   }
 
   getDataSelectTask(selectElement) {

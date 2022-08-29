@@ -21,6 +21,31 @@
   width: 380px;
 }
 
+.modal-window-sign-up-or-log-in {
+  background-color: #f7f9fb;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 22px;
+  transition: all 0.5s;
+  width: 380px;
+  top: 10%;
+}
+
+.log-in-or-sign-up-modal {
+  visibility: visible;
+}
+
+.header-modal_heading__button-active {
+  background-color: #a5c5e8;
+  color: black;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.log-in-or-sign-up_element__error {
+  color: red;
+}
+
 .modal-window_header-modal {
   padding: 20px 15px;
   background-color: #4e42d4;
@@ -121,7 +146,8 @@
 }
 
 @media (max-width: 800px) {
-  .modal-window {
+  .modal-window,
+  .modal-window-sign-up-or-log-in {
     font-size: 20px;
     width: 360px;
   }
@@ -140,7 +166,8 @@
 }
 
 @media (max-width: 700px) {
-  .modal-window {
+  .modal-window,
+  .modal-window-sign-up-or-log-in {
     font-size: 18px;
     width: 340px;
   }
@@ -159,13 +186,18 @@
 }
 
 @media (max-width: 580px) {
-  .modal-window {
+  .modal-window,
+  .modal-window-sign-up-or-log-in {
     font-size: 15px;
     width: 320px;
   }
 
   .button-submit {
     font-size: 19px;
+  }
+
+  .header-modal_heading__button-active {
+    padding: 10px;
   }
 
   .button-submit:hover {

@@ -1,276 +1,85 @@
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
+import { resetModalWindow } from "./modalWindow.js";
 import ListProjects from "./class/ListProjects.js";
-import { showModalWindows, hideModalWindow, resetModalWindow } from "./modalWindow.js";
 import Project from "./class/Project.js";
-import Task from "./class/Task.js";
 import preloader from "./preloader.js";
+import { enterInApp, selectButtonSigUpOrLogIn  } from "./authentication.js";
 
-const wrapperMain = document.querySelector(".wrapper-main");
-const addProjectModal = document.querySelector(".add-project-modal");
-const addTaskModal = document.querySelector(".add-task-modal");
-const editModal = document.querySelector(".edit-modal");
-const listProjectsElement = document.querySelector(".projects_list-projects");
-const wrapperNav = document.querySelector(".wrapper-nav");
+const formSignUpOrLoginIn = document.querySelector(".modal-window_log-in-or-sign-up");
+const textError = document.querySelector(".log-in-or-sign-up_element__error");
 const elementsOfStaticProjects = document.querySelectorAll(".static-projects_element");
-const formAddProject = document.querySelector(".modal-window_data-about-project");
-const formAddTask = document.querySelector(".modal-window_data-about-task");
-const fromEdit = document.querySelector(".modal-window_data-about-edit");
-const infoModal = document.querySelector(".info-modal");
-const buttonShowHumburgerMenu = document.querySelector(".button-burger-menu");
+const modalHeaders = document.querySelector(".modal-window_headers-modal");
 
-const arrayListProjetcs = Project.createStaticProjects(elementsOfStaticProjects);
-const dataWithLocalStorage = JSON.parse(localStorage.getItem("list-projects"));
-
-const dataOfProjects = dataWithLocalStorage ? dataWithLocalStorage : arrayListProjetcs;
-const getListProjects = new ListProjects(listProjectsElement, dataOfProjects);
-
-wrapperMain.addEventListener("click", (event) => {
-  const target = event.target;
-  const projectsButton = target.closest(".projects_button");
-  const taskButton = target.closest(".task_button");
-  const taskEdit = target.closest(".list-tasks_task__edit");
-  const infoButton = target.closest(".list-tasks_task__info");
-
-  if (projectsButton) {
-    const modalWindow = addProjectModal.lastElementChild;
-    showModalWindows(addProjectModal, modalWindow);
-  }
-
-  if (taskButton) {
-    const modalWindow = addTaskModal.lastElementChild;
-    showModalWindows(addTaskModal, modalWindow);
-  }
-
-  if (infoButton) {
-    const modalWindow = infoModal.lastElementChild;
-    showModalWindows(infoModal, modalWindow);
-
-    const nameTask = document.querySelector("#data-about-info_nameTask");
-    const dueDate = document.querySelector("#data-about-info_dueDate");
-    const description = document.querySelector("#data-about-info_description");
-    const priority = document.querySelector("#data-about-info_priority");
-
-    const { dataSelectTask } = getListProjects.getDataSelectTask(target);
-
-    nameTask.textContent = dataSelectTask.title;
-    dueDate.textContent = dataSelectTask.dueDate;
-    description.textContent = dataSelectTask.description;
-    priority.textContent = dataSelectTask.priority;
-  }
-
-  if (taskEdit) {
-    const modalWindow = editModal.lastElementChild;
-    showModalWindows(editModal, modalWindow);
-
-    const { dataSelectTask, indexSelectTask } = getListProjects.getDataSelectTask(target);
-
-    fromEdit.dataset.indexSelectTask = indexSelectTask;
-    fromEdit.nameTask.value = dataSelectTask.title;
-    fromEdit.dueDate.value = dataSelectTask.dueDate;
-    fromEdit.description.value = dataSelectTask.description;
-    fromEdit.priority.value = dataSelectTask.priority;
-  }
-});
-
-document.addEventListener("click", (event) => {
-  const target = event.target;
-  const hasWrapperModalWindow = target.closest(".wrapper-modal-window");
-  const hasModalWindow = target.closest(".modal-window");
-  const hasButtonHidingModalWindow = target.closest(".button-hiding-modal-window");
-
-  if (!hasWrapperModalWindow) return;
-
-  if (hasModalWindow && !hasButtonHidingModalWindow) return;
-
-  const modalWindow = hasWrapperModalWindow.lastElementChild;
-  const formModalWindow = modalWindow.lastElementChild;
-
-  hideModalWindow(hasWrapperModalWindow, modalWindow);
-
-  const formEdit = hasWrapperModalWindow.classList.contains("edit-modal");
-  if (formEdit) return;
-
-  const formInfo = hasWrapperModalWindow.classList.contains("info-modal");
-  if (formInfo) return;
-
-  resetModalWindow(formModalWindow);
-});
-
-formAddProject.addEventListener("submit", function (event) {
+formSignUpOrLoginIn.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const modalWindow = this.parentElement;
-  const wrapperModalWindow = modalWindow.parentElement;
-  const nameProject = formAddProject.nameProject;
-  const nameProjectValue = nameProject.value.trim();
-  const project = new Project(nameProjectValue);
+  const auth = getAuth();
+  const styleSubmit = formSignUpOrLoginIn.dataset.styleSubmit;
+  const email = formSignUpOrLoginIn.email.value;
+  const password = formSignUpOrLoginIn.password.value;
+  const submitButton = formSignUpOrLoginIn.buttonSubmit;
+  const messageAboutMinLengthPassword = "Password length at least 6 characters";
+  const messageAboutWrongPasswordOrEmail = "Your email and password does not match. Please try again.";
+  const messageAboutExistingUser = "Already have an account with this email address";
 
-  getListProjects.addProjectInDataOfProjectsAndInListProject(project);
+  textError.textContent = "";
 
-  hideModalWindow(wrapperModalWindow, modalWindow);
-  nameProject.blur();
-
-  const formModalWindow = modalWindow.lastElementChild;
-  resetModalWindow(formModalWindow);
-});
-
-formAddTask.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const modalWindow = this.parentElement;
-  const wrapperModalWindow = modalWindow.parentElement;
-  const nameTask = this.nameTask;
-  const dueDate = this.dueDate;
-  const priority = this.priority;
-  const description = this.description;
-  const nameTaskValue = nameTask.value.trim();
-  const dueDateValue = dueDate.value.trim();
-  const priorityValue = priority.value.trim();
-  const descriptionValue = description.value.trim();
-  const task = new Task(nameTaskValue, priorityValue, descriptionValue, dueDateValue);
-  getListProjects.addTaskInSelectProject(task);
-
-  getListProjects.fillProjectPreview();
-  hideModalWindow(wrapperModalWindow, modalWindow);
-  getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
-
-  this.blur();
-
-  const formModalWindow = modalWindow.lastElementChild;
-  resetModalWindow(formModalWindow);
-});
-
-fromEdit.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const target = event.target;
-  const wrapperModalWindow = target.closest(".wrapper-modal-window");
-  const modalWindow = wrapperModalWindow.lastElementChild;
-
-  hideModalWindow(wrapperModalWindow, modalWindow);
-
-  const tasksSelectProject = getListProjects.selectProject.tasks;
-  const indexSelectTaskInForm = fromEdit.dataset.indexSelectTask;
-  const dataSelectTask = tasksSelectProject[indexSelectTaskInForm];
-  dataSelectTask.title = fromEdit.nameTask.value;
-  dataSelectTask.dueDate = fromEdit.dueDate.value;
-  dataSelectTask.description = fromEdit.description.value;
-  dataSelectTask.priority = fromEdit.priority.value;
-
-  const hasNameProjectInTask = dataSelectTask.nameProject;
-  if (hasNameProjectInTask) {
-    const projectParent = getListProjects.findProjectInListProject(hasNameProjectInTask);
-    const tasksParentProject = projectParent.tasks;
-    const selectTaskParentProject = tasksParentProject[indexSelectTaskInForm];
-    selectTaskParentProject.title = fromEdit.nameTask.value;
-    selectTaskParentProject.dueDate = fromEdit.dueDate.value;
-    selectTaskParentProject.description = fromEdit.description.value;
-    selectTaskParentProject.priority = fromEdit.priority.value;
+  if (password.length < 6) {
+    textError.textContent = messageAboutMinLengthPassword;
+    return;
   }
 
-  getListProjects.fillProjectPreview();
-  getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
-});
+  if (styleSubmit === "logIn") {
+    submitButton.disabled = true;
 
-listProjectsElement.addEventListener("click", (event) => {
-  const target = event.target;
-
-  const buttonClose = target.closest(".wrapper-list-projects_project__close");
-  if (!buttonClose) return;
-
-  const buttonsNav = Array.from(document.querySelectorAll(".button-nav"));
-  const parentTarget = target.closest(".button-nav");
-  const indexButtonNav = buttonsNav.indexOf(parentTarget);
-
-  getListProjects.deleteElementWithList(indexButtonNav);
-  parentTarget.remove();
-  getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
-});
-
-wrapperNav.addEventListener("click", (event) => {
-  const target = event.target;
-
-  const buttonClose = target.closest(".wrapper-list-projects_project__close");
-  if (buttonClose) return;
-
-  const buttonAdd = target.closest(".button-add");
-  if (buttonAdd) return;
-
-  const buttonNav = target.closest(".button-nav");
-  if (!buttonNav) return;
-
-  const buttonsNav = Array.from(document.querySelectorAll(".button-nav"));
-  const parentTarget = target.closest(".button-nav");
-  const indexButtonNav = buttonsNav.indexOf(parentTarget);
-  getListProjects.select(indexButtonNav, parentTarget);
-});
-
-wrapperMain.addEventListener("click", (event) => {
-  const target = event.target;
-  const closeTaskButton = target.closest(".list-tasks_task__close");
-
-  if (!closeTaskButton) return;
-
-  const selectTask = closeTaskButton.closest(".list-tasks_task");
-
-  const tasksSelectProject = getListProjects.selectProject.listOfTasks;
-
-  const tasks = Array.from(document.querySelectorAll(".list-tasks_task"));
-  const indexSelectTask = tasks.indexOf(selectTask);
-
-  tasksSelectProject.deleteElementWithList(indexSelectTask);
-  tasks[indexSelectTask].remove();
-  getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
-});
-
-wrapperMain.addEventListener("change", (event) => {
-  const target = event.target;
-  const checkboxTask = target.closest(".list-tasks_task__checkboxTask");
-
-  if (!checkboxTask) return;
-
-  const task = checkboxTask.closest(".list-tasks_task");
-  const tasks = Array.from(document.querySelectorAll(".list-tasks_task"));
-  const indexSelectTask = tasks.indexOf(task);
-  const selectProject = getListProjects.selectProject;
-  const selectTask = selectProject.tasks[indexSelectTask];
-  selectTask.checked = !selectTask.checked;
-  task.classList.toggle("checked");
-
-  const hasNameProjectInTask = selectTask.nameProject;
-  if (hasNameProjectInTask) {
-    const projectParent = getListProjects.findProjectInListProject(hasNameProjectInTask);
-    const tasksParentProject = projectParent.tasks;
-    const selectTaskParentProject = tasksParentProject[indexSelectTask];
-    selectTaskParentProject.checked = !selectTaskParentProject.checked;
+    signInWithEmailAndPassword(auth, email, password)
+      .then(async (data) => {
+        const idUser = data.user.uid;
+        const projects = await ListProjects.findProjectUser(idUser);
+        const projectsValue = await projects.json();
+        enterInApp(projectsValue, idUser);
+      })
+      .catch(() => {
+        textError.textContent = messageAboutWrongPasswordOrEmail;
+        submitButton.disabled = false;
+      });
   }
 
-  getListProjects.addTasksInStaticProjectAndUpdateDataAndAddCountTasks();
+  if (styleSubmit === "signUp") {
+    submitButton.disabled = true;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((data) => {
+        const idUser = data.user.uid;
+        const arrayListProjetcs = Project.createStaticProjects(elementsOfStaticProjects);
+        enterInApp(arrayListProjetcs, idUser);
+      })
+      .catch(() => {
+        textError.textContent = messageAboutExistingUser;
+        submitButton.disabled = false;
+      });
+  }
 });
 
-buttonShowHumburgerMenu.addEventListener("click", () => {
-  buttonShowHumburgerMenu.classList.add("button-burger-menu_active");
-  wrapperNav.style.left = "0";
-});
-
-wrapperNav.addEventListener("click", (event) => {
+modalHeaders.addEventListener("click", function (event) {
   const target = event.target;
+  const valueTarget = target.dataset.value;
+  const buttonLogIn = document.querySelector('.header-modal_heading__button[data-value="logIn"]');
+  const buttonSignUp = document.querySelector('.header-modal_heading__button[data-value="signUp"]');
+  const logIn = "logIn";
+  const signUp = "signUp";
 
-  const hasClassInButtonShowHumburgerMenu = buttonShowHumburgerMenu.classList.contains("button-burger-menu_active");
-  if (!hasClassInButtonShowHumburgerMenu) return;
+  if (valueTarget === logIn) {
+    selectButtonSigUpOrLogIn(target, buttonSignUp, "Log In");
+    resetModalWindow(formSignUpOrLoginIn);
+    formSignUpOrLoginIn.dataset.styleSubmit = logIn;
+  }
 
-  const buttonClose = target.closest(".list-projects_project__close");
-  if (buttonClose) return;
-
-  const buttonAdd = target.closest(".button-add");
-  if (buttonAdd) return;
-
-  const buttonNav = target.closest(".button-nav");
-  const hasNavProjects = target.closest(".nav-projects");
-  const buttonCloseWrapperNav = target.closest(".button-close-wrapper-nav");
-  if (hasNavProjects && !buttonCloseWrapperNav && !buttonNav) return;
-
-  buttonShowHumburgerMenu.classList.remove("button-burger-menu_active");
-  wrapperNav.style.left = "-100%";
+  if (valueTarget === signUp) {
+    selectButtonSigUpOrLogIn(target, buttonLogIn, "Create an account");
+    resetModalWindow(formSignUpOrLoginIn);
+    formSignUpOrLoginIn.dataset.styleSubmit = signUp;
+  }
 });
 
 preloader().then(() => {
