@@ -6,6 +6,7 @@ class List {
 
   fillListByDataAboutList() {
     this.listElement.textContent = "";
+    
     this.dataAboutList.forEach((data) => {
       const template = data.createElement(data);
 

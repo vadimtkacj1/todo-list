@@ -59,10 +59,12 @@ class ListProjects extends List {
     const buttonsNav = document.querySelectorAll(".button-nav");
 
     this.dataAboutList.forEach((project, indexProject) => {
+      const buttonNav = buttonsNav[indexProject];
       const tasks = project.tasks;
       const checkedTask = tasks.filter((task) => !task.checked);
       const lengthCheckedTasks = checkedTask.length;
-      const getAmountProject = buttonsNav[indexProject].querySelector(".button-projects_amount-wrapper");
+      const getAmountProject = buttonNav.querySelector(".button-projects_amount-wrapper");
+      const lengthCheckedTasksElement = `<span class="button-projects_amount-wrapper"><span class="button-projects_amount">${lengthCheckedTasks}</span></span>`;
 
       if (getAmountProject) {
         getAmountProject.remove();
@@ -70,10 +72,7 @@ class ListProjects extends List {
 
       if (!lengthCheckedTasks) return;
 
-      buttonsNav[indexProject].insertAdjacentHTML(
-        "beforeend",
-        `<span class="button-projects_amount-wrapper"><span class="button-projects_amount">${lengthCheckedTasks}</span></span>`
-      );
+      buttonNav.insertAdjacentHTML("beforeend", lengthCheckedTasksElement);
     });
   }
 
@@ -91,7 +90,9 @@ class ListProjects extends List {
   }
 
   addProjectInDataOfProjectsAndInListProject(project) {
-    if (this.nameProjects.indexOf(project.name) !== -1) {
+    const nameProject = project.name;
+    const indexProjectName = this.nameProjects.indexOf(nameProject);
+    if (indexProjectName !== -1) {
       alert("There is already such a project");
       return;
     }

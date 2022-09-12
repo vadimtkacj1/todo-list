@@ -21,6 +21,7 @@ class Project {
 
   static createStaticProjects = (staticProjects) => {
     const arrayStaticProjects = [];
+    
     staticProjects.forEach((element) => {
       const valueElement = element.textContent;
       const buttonNav = element.closest(".button-nav");
