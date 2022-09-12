@@ -3,7 +3,7 @@ import { resetModalWindow } from "./modalWindow.js";
 import ListProjects from "./class/ListProjects.js";
 import Project from "./class/Project.js";
 import preloader from "./preloader.js";
-import { enterInApp, selectButtonSigUpOrLogIn  } from "./authentication.js";
+import { enterInApp, selectButtonSigUpOrLogIn } from "./authentication.js";
 
 const formSignUpOrLoginIn = document.querySelector(".modal-window_log-in-or-sign-up");
 const textError = document.querySelector(".log-in-or-sign-up_element__error");
@@ -73,12 +73,14 @@ modalHeaders.addEventListener("click", function (event) {
     selectButtonSigUpOrLogIn(target, buttonSignUp, "Log In");
     resetModalWindow(formSignUpOrLoginIn);
     formSignUpOrLoginIn.dataset.styleSubmit = logIn;
+     textError.textContent = "";
   }
 
   if (valueTarget === signUp) {
     selectButtonSigUpOrLogIn(target, buttonLogIn, "Create an account");
     resetModalWindow(formSignUpOrLoginIn);
     formSignUpOrLoginIn.dataset.styleSubmit = signUp;
+     textError.textContent = "";
   }
 });
 
