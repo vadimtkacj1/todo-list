@@ -68,11 +68,11 @@ const startApp = (listProjects) => {
     const hasWrapperModalWindow = target.closest(".wrapper-modal-window");
     const hasModalWindow = target.closest(".modal-window");
     const hasButtonHidingModalWindow = target.closest(".button-hiding-modal-window");
-    const hasClassLogInOrSignUP = hasWrapperModalWindow?.classList.contains("log-in-or-sign-up-modal");
+    const hasClassLogInOrSignUp = hasWrapperModalWindow?.classList.contains("log-in-or-sign-up-modal");
 
     if (!hasWrapperModalWindow) return;
 
-    if (hasClassLogInOrSignUP) return;
+    if (hasClassLogInOrSignUp) return;
 
     if (hasModalWindow && !hasButtonHidingModalWindow) return;
 

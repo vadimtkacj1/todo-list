@@ -1,8 +1,8 @@
 class Task {
-  static priorityColor = {
-    low: "green",
-    medium: "orange",
-    hight: "red",
+  static PRIORITY_COLOR = {
+    LOW: "green",
+    MEDIUM: "orange",
+    HIGHT: "red",
   };
 
   constructor(title, priority, description, dueDate) {
@@ -15,10 +15,12 @@ class Task {
   }
 
   createElement() {
+    const priorityInToUpperCase = this.priority.toUpperCase();
     const checkDueData = this.dueDate ? this.dueDate : "No date";
-    const colorPriority = Task.priorityColor[this.priority];
+    const colorPriority = Task.PRIORITY_COLOR[priorityInToUpperCase];
     const checkedCheck = this.checked ? "checked" : "";
-    const checkProjectName = this.nameProject ? "(" + this.nameProject + ")" : "";
+    const strNameProjectWithBraskets = "(" + this.nameProject + ")";
+    const checkProjectName = this.nameProject ? strNameProjectWithBraskets : "";
     const template = `<div class="list-tasks_task ${checkedCheck}" style="border-left: 3px solid ${colorPriority};">
     <label class="list-tasks_checkbox">
       <input type="checkbox" name="checkboxTask" class="list-tasks_task__checkboxTask" ${checkedCheck} />
