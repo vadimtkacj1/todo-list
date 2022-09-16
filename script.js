@@ -18,20 +18,22 @@ formSignUpOrLoginIn.addEventListener("submit", (event) => {
   const email = formSignUpOrLoginIn.email.value;
   const password = formSignUpOrLoginIn.password.value;
   const submitButton = formSignUpOrLoginIn.buttonSubmit;
-  const messageAboutMinLengthPassword = "Password length at least 6 characters";
-  const messageAboutWrongPasswordOrEmail = "Your email and password does not match. Please try again.";
-  const messageAboutExistingUser = "Already have an account with this email address";
+  const messageWithError = {
+    aboutMinLengthPassword: "Password length at least 6 characters",
+    aboutWrongPasswordOrEmail: "Your email and password does not match. Please try again.",
+    aboutExistingUser: "Already have an account with this email address",
+  };
 
   textError.textContent = "";
 
   if (password.length < 6) {
-    textError.textContent = messageAboutMinLengthPassword;
+    textError.textContent = messageWithError.aboutMinLengthPassword;
     return;
   }
 
   if (styleSubmit === "logIn") {
     submitButton.disabled = true;
-
+   
     signInWithEmailAndPassword(auth, email, password)
       .then(async (data) => {
         const idUser = data.user.uid;
@@ -40,7 +42,7 @@ formSignUpOrLoginIn.addEventListener("submit", (event) => {
         enterInApp(projectsValue, idUser);
       })
       .catch(() => {
-        textError.textContent = messageAboutWrongPasswordOrEmail;
+        textError.textContent = messageWithError.aboutWrongPasswordOrEmail;
         submitButton.disabled = false;
       });
   }
@@ -55,7 +57,7 @@ formSignUpOrLoginIn.addEventListener("submit", (event) => {
         enterInApp(arrayListProjetcs, idUser);
       })
       .catch(() => {
-        textError.textContent = messageAboutExistingUser;
+        textError.textContent = messageWithError.aboutExistingUser;
         submitButton.disabled = false;
       });
   }
@@ -73,14 +75,14 @@ modalHeaders.addEventListener("click", function (event) {
     selectButtonSigUpOrLogIn(target, buttonSignUp, "Log In");
     resetModalWindow(formSignUpOrLoginIn);
     formSignUpOrLoginIn.dataset.styleSubmit = logIn;
-     textError.textContent = "";
+    textError.textContent = "";
   }
 
   if (valueTarget === signUp) {
     selectButtonSigUpOrLogIn(target, buttonLogIn, "Create an account");
     resetModalWindow(formSignUpOrLoginIn);
     formSignUpOrLoginIn.dataset.styleSubmit = signUp;
-     textError.textContent = "";
+    textError.textContent = "";
   }
 });
 

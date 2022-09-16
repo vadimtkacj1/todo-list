@@ -64,6 +64,7 @@ class ListProjects extends List {
       const checkedTask = tasks.filter((task) => !task.checked);
       const lengthCheckedTasks = checkedTask.length;
       const getAmountProject = buttonNav.querySelector(".button-projects_amount-wrapper");
+
       const lengthCheckedTasksElement = `<span class="button-projects_amount-wrapper"><span class="button-projects_amount">${lengthCheckedTasks}</span></span>`;
 
       if (getAmountProject) {
