@@ -1,0 +1,306 @@
+.wrapper-modal-window {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.content-modal_element input.colorProject {
+  padding: 0px;
+}
+
+.modal-window {
+  background-color: #f7f9fb;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 22px;
+  transition: all 0.5s;
+  width: 380px;
+}
+
+.modal-window-sign-up-or-log-in {
+  background-color: #f7f9fb;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 22px;
+  transition: all 0.5s;
+  width: 380px;
+}
+
+.edit-modal .modal-window_header,
+.add-task-modal .modal-window_header,
+.add-project-modal .modal-window_header {
+  border-bottom: 5px solid green;
+}
+
+.log-in-or-sign-up-modal {
+  visibility: visible;
+}
+
+.header-modal_heading {
+  padding: 15px;
+}
+
+.header-modal_heading__button {
+  cursor: pointer;
+}
+
+.header-modal_heading__button-active {
+  background-color: #a5c5e8;
+  color: black;
+  border-radius: 5px;
+}
+
+.content-modal-auth_error {
+  color: red;
+}
+
+.wrapper-modal-window-auth {
+  justify-content: flex-start;
+}
+
+.modal-window-auth {
+  top: 5%;
+}
+
+.modal-window_header {
+  padding: 15px 10px;
+  background-color: #4e42d4;
+  color: #f7f9fb;
+  font-size: 36px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button-hiding-modal-window {
+  font-size: 42px;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.button-hiding-modal-window:hover {
+  color: #a5c5e8;
+}
+
+.modal-window_content {
+  padding: 20px 15px;
+}
+
+.content-modal_element {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-modal_element:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.content-modal_element label {
+  margin-bottom: 5px;
+}
+
+.description,
+.content-modal_element input:not(input.colorProject),
+.content-modal_element select {
+  background: #eeeeee;
+  padding: 0.7rem;
+  outline: none;
+  border: none;
+  resize: none;
+}
+
+.description {
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.button-submit {
+  padding: 10px 15px;
+  font-size: 25px;
+  border: 2px solid #4e42d4;
+  color: #4e42d4;
+  font-weight: bold;
+  transition: all 0.5s;
+}
+
+.button-submit:hover {
+  padding: 10px 15px;
+  font-size: 25px;
+  background-color: #4e42d4;
+  color: #f7f9fb;
+}
+
+.content-modal-info_element__value,
+.content-modal-account__value {
+  overflow-x: auto;
+}
+
+.button-submit:active {
+  padding: 10px 15px;
+  font-size: 25px;
+  background-color: #4e42d4;
+  position: relative;
+  top: 1px;
+}
+
+.show-modal-window {
+  top: 10%;
+}
+
+.button-submit {
+  margin-top: 10px;
+}
+
+.content-modal-info_element__heading,
+.content-modal-account_element__heading {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.content-modal-info_element {
+  display: flex;
+  flex-direction: row;
+}
+
+.buttons-project-submit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.colorProject {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.colorProject::-webkit-color-swatch {
+  border-radius: 15px;
+  border: none;
+}
+
+.colorProject::-moz-color-swatch {
+  border-radius: 15px;
+  border: none;
+}
+
+.modal-window_buttons-sig-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-with-google-btn {
+  transition: background-color 0.3s, box-shadow 0.3s;
+  padding: 12px 16px 12px 42px;
+  border: none;
+  color: rgb(30, 35, 41);
+  font-size: 14px;
+  width: 100%;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+  background-color: rgb(234, 236, 239);
+  background-repeat: no-repeat;
+  background-position: 12px 11px;
+}
+
+.login-with-google-btn:hover {
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.modal-window_line {
+  display: flex;
+  align-items: center;
+  margin: 15px 0px;
+}
+
+.modal-window_line__text {
+  box-sizing: border-box;
+  margin: 0px 24px;
+  min-width: 0px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgb(112, 122, 138);
+}
+
+.modal-window_line__line {
+  box-sizing: border-box;
+  margin: 0px;
+  min-width: 0px;
+  height: 1px;
+  flex: 1 1 0%;
+  background-color: #75787d;
+}
+
+#modal-window_info-task {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 576px) {
+  .modal-window {
+    width: 280px;
+  }
+
+  #modal-window_info-task {
+    margin-bottom: 10px;
+  }
+
+  .show-modal-window {
+    top: 5%;
+  }
+
+  .modal-window_header {
+    background-color: #4e42d4;
+    color: #f7f9fb;
+    font-size: 28px;
+  }
+
+  .header-modal_heading {
+    padding: 10px;
+  }
+
+  .button-hiding-modal-window {
+    font-size: 36px;
+  }
+
+  .description,
+  .content-modal_element input,
+  .content-modal_element select {
+    padding: 0.5rem;
+  }
+
+  .modal-window {
+    font-size: 16px;
+  }
+
+  .button-submit {
+    margin: 0px;
+    font-size: 20px;
+    padding: 5px 10px;
+  }
+
+  .button-submit:hover {
+    font-size: 20px;
+    padding: 5px 10px;
+  }
+
+  .content-modal_element:not(:last-child) {
+    margin-bottom: 15px;
+  }
+}
